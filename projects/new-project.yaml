@@ -1,0 +1,34 @@
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicy
+metadata:
+  name: demo-group-01 # kpt-set: ${group-name}
+  namespace: config-control
+  annotations:
+    cnrm.cloud.google.com/blueprint: cnrm/landing-zone/v0.5.1,kpt-pkg-fn
+  labels:
+    target-group: demo-group-01 # kpt-set: ${group-name}
+spec:
+  resourceRef:
+    apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+    kind: Project
+    external: projects/kuchima-0618-demo # kpt-set: projects/${project-id}
+  bindings:
+    - members:
+        - group:demo-group-01@kkuchima-test.com # kpt-set: ${group-address}
+      role: roles/editor # kpt-set: ${role}
+---
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: Project
+metadata:
+  name: kuchima-0618-demo # kpt-set: ${project-id}
+  namespace: projects
+  annotations:
+    cnrm.cloud.google.com/auto-create-network: "false"
+    cnrm.cloud.google.com/blueprint: cnrm/landing-zone:project/v0.4.3,kpt-pkg-fn
+spec:
+  name: kuchima-0618-demo # kpt-set: ${project-id}
+  billingAccountRef:
+    external: "01DAD8-FE3D0C-D0BAE9"
+  folderRef:
+    name: sandbox-folder # kpt-set: ${folder-name}
+    namespace: hierarchy

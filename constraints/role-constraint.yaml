@@ -1,0 +1,20 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: AllowedRolesV1
+metadata:
+  name: demo-group-01-constraint
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+    - apiGroups:
+      - iam.cnrm.cloud.google.com
+      kinds:
+      - IAMPolicy
+    namespaces:
+    - config-control
+    labelSelector:
+      matchLabels:
+        target-group: demo-group-01
+  parameters:
+    roles:
+    - roles/editor
