@@ -28,7 +28,7 @@ metadata:
 spec:
   name: kuchima-0618-demo # kpt-set: ${project-id}
   billingAccountRef:
-    external: "01DAD8-FE3D0C-D0BAE9"
+    external: "xxx-xxx"
   folderRef:
     name: sandbox-folder # kpt-set: ${folder-name}
     namespace: hierarchy
